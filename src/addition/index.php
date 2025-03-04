@@ -3,13 +3,18 @@
     include 'utils.php';
     log_adresse_ip("logs/log.txt","index.php");
 
-	session_start();
+	include '../header.php';
 	$_SESSION['nbMaxQuestions']=10;
 	$_SESSION['nbQuestion']=0;
 	$_SESSION['nbBonneReponse']=0;
 	$_SESSION['prenom']="";
 	$_SESSION['historique']="";
 	$_SESSION['origine']="index";
+
+	if (!isset($_SESSION['user_id'])) {
+        header('Location: ../login/index.php');
+        exit();
+    }
 ?>
 
 <!doctype html>
