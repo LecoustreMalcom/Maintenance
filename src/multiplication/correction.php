@@ -1,7 +1,8 @@
 <?php
 	@ob_start();
     include 'utils.php';
-	session_start();
+	require '../header.php';
+	
     log_adresse_ip("logs/log.txt","correction.php - ".$_SESSION['prenom']." - Question numéro ".$_SESSION['nbQuestion']);
 
 
@@ -32,7 +33,7 @@
 								if($_POST['mot']==$_POST['correction']){
 									echo '<h1>Super '.$_SESSION['prenom'].' ! Bonne réponse.</h1>';
 									$_SESSION['nbBonneReponse']=$_SESSION['nbBonneReponse']+1;
-									$_SESSION['historique']=$_SESSION['historique'].''.$_POST['operation'].$_POST['correction']."\n";
+									$_SESSION['historique']=$_SESSION['historique'].'********'.''.$_POST['operation'].$_POST['correction']."\n";
 								}else{
                                     echo '<h1>Oh non !</h1><br />';
 									echo '<h2>La bonne réponse était : '.$_POST['operation'].$_POST['correction'].'.</h2>';

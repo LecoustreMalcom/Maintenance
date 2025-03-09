@@ -1,10 +1,10 @@
 <?php
 	@ob_start();
-	session_start();
+	require '../header.php';
     include 'utils.php';
 
 	$_SESSION['origine']="question";
-    if($_SESSION['prenom']=="" && $_POST['prenom']==""){
+    if($_SESSION['user_id']==""){
         log_adresse_ip("logs/log.txt","question.php - accès irrégulier");
         unset($_SESSION);
         unset($_POST);

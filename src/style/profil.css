@@ -13,7 +13,7 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+h1, h2, h3, h4 {
     color: #333;
 }
 
@@ -41,10 +41,11 @@ tr:hover {
     background-color: #ddd;
 }
 
-.checkmark-positive {
-    color: green;
+a {
+    color: #007bff;
+    text-decoration: none;
 }
 
-.checkmark-negative {
-    color: red;
+a:hover {
+    text-decoration: underline;
 }

@@ -1,27 +1,35 @@
 <?php
-@ob_start();
-include 'utils.php';
-require '../header.php';
+    // Démarre la mise en tampon de sortie
+    @ob_start();
+    
+    // Inclut le fichier utils.php pour utiliser ses fonctions
+    include 'utils.php';
+    
+    // Inclut le fichier header.php
+    require '../header.php';
 
-log_adresse_ip("logs/log.txt", "fin.php - " . $_SESSION['prenom']);
+    // Enregistre l'adresse IP de l'utilisateur dans un fichier de log
+    log_adresse_ip("logs/log.txt", "fin.php - " . $_SESSION['prenom']);
 
-$_SESSION['origine'] = "fin";
+    // Définit l'origine de la session comme "fin"
+    $_SESSION['origine'] = "fin";
 
-require '../bdd.php';
+    // Inclut le fichier bdd.php pour la connexion à la base de données
+    require '../bdd.php';
 
-// Enregistrer l'historique des réponses dans un fichier
-$_SESSION['prenom'] = strtolower($_SESSION['prenom']);
-$_SESSION['prenom'] = supprime_caracteres_speciaux($_SESSION['prenom']);
-$today = date('Ymd-His');
-$history_link = '../addition/resultats/' . $_SESSION['prenom'] . '-addition-' . $today . '.txt';
-$fp = fopen($history_link, 'w');
-$_SESSION['historique'] = $_SESSION['historique'] . '' . $_SESSION['nbBonneReponse'];
-fwrite($fp, $_SESSION['historique']);
-fclose($fp);
+    // Enregistre l'historique des réponses dans un fichier
+    $_SESSION['prenom'] = strtolower($_SESSION['prenom']);
+    $_SESSION['prenom'] = supprime_caracteres_speciaux($_SESSION['prenom']);
+    $today = date('Ymd-His');
+    $history_link = '../addition/resultats/' . $_SESSION['prenom'] . '-addition-' . $today . '.txt';
+    $fp = fopen($history_link, 'w');
+    $_SESSION['historique'] = $_SESSION['historique'] . '' . $_SESSION['nbBonneReponse'];
+    fwrite($fp, $_SESSION['historique']);
+    fclose($fp);
 
-// Enregistrer les résultats dans la base de données
-$stmt = $pdo->prepare("INSERT INTO results (user_id, exercise, correct, total, history_link) VALUES (?, ?, ?, ?, ?)");
-$stmt->execute([$_SESSION['user_id'], 'addition', $_SESSION['nbBonneReponse'], $_SESSION['nbQuestion'], $history_link]);
+    // Enregistre les résultats dans la base de données
+    $stmt = $pdo->prepare("INSERT INTO results (user_id, exercise, correct, total, history_link) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([$_SESSION['user_id'], 'addition', $_SESSION['nbBonneReponse'], $_SESSION['nbQuestion'], $history_link]);
 ?>
 
 <!doctype html>
@@ -37,11 +45,13 @@ $stmt->execute([$_SESSION['user_id'], 'addition', $_SESSION['nbBonneReponse'], $
                 <td style="width:1000px;height:430px;background-image:url('./images/NO.jpg');background-repeat:no-repeat;">
                     <center>
                         <?php
+                        // Affiche le nombre de bonnes réponses et de questions
                         if ($_SESSION['nbBonneReponse'] > 1)
                             echo '<h2>Fin du test.</h2>Tu as ' . $_SESSION['nbBonneReponse'] . ' bonnes réponses sur ' . $_SESSION['nbQuestion'] . ' questions.';
                         else
                             echo '<h2>Fin du test.</h2>Tu as ' . $_SESSION['nbBonneReponse'] . ' bonne réponse sur ' . $_SESSION['nbQuestion'] . ' questions.';
 
+                        // Affiche une médaille ou un message en fonction du score
                         if ($_SESSION['nbBonneReponse'] >= $_SESSION['nbMaxQuestions'] * 0.8) {
                             echo '<h3>Félicitations !</h3>';
                             echo '<img src="./images/medailleOr.png" width="100px"><br />';
@@ -60,6 +70,7 @@ $stmt->execute([$_SESSION['user_id'], 'addition', $_SESSION['nbBonneReponse'], $
                             }
                         }
                         ?>
+                        <!-- Formulaire pour recommencer le test -->
                         <form action="./index.php" method="post">
                             <input type="submit" value="Recommencer" autofocus>
                         </form>

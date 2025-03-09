@@ -1,7 +1,8 @@
 <?php
 	@ob_start();
     include 'utils.php';
-	session_start();
+	require '../header.php';
+
     log_adresse_ip("logs/log.txt","correction.php - ".$_SESSION['prenom']." - Question numéro ".$_SESSION['nbQuestion']);
 
 
@@ -34,7 +35,7 @@
 									echo 'Je/J\' '.$_POST['mot1'].' &#9989;<br />';
 									$_SESSION['nbBonneReponse']=$_SESSION['nbBonneReponse']+1;
                                     $nbPointsLocal=$nbPointsLocal+1;
-									$_SESSION['historique']=$_SESSION['historique'].'Je/J\' '.$_POST['correction1']."\n";
+									$_SESSION['historique']=$_SESSION['historique'].'********Je/J\' '.$_POST['correction1']."\n";
 								}else{
                                     echo 'Je/J\' <strike>'.$_POST['mot1'].'</strike> &#10060; &#10132; '.$_POST['correction1'].'<br />';
 									$_SESSION['historique']=$_SESSION['historique'].'********Je/J\' '.$_POST['mot1'].';Je/J\' '.$_POST['correction1']."\n";
@@ -43,7 +44,7 @@
 									echo 'Tu '.$_POST['mot2'].' &#9989;<br />';
 									$_SESSION['nbBonneReponse']=$_SESSION['nbBonneReponse']+1;
                                     $nbPointsLocal=$nbPointsLocal+1;
-									$_SESSION['historique']=$_SESSION['historique'].'Tu '.$_POST['correction2']."\n";
+									$_SESSION['historique']=$_SESSION['historique'].'********Tu '.$_POST['correction2']."\n";
 								}else{
                                     echo 'Tu <strike>'.$_POST['mot2'].'</strike> &#10060; &#10132; '.$_POST['correction2'].'<br />';
 									$_SESSION['historique']=$_SESSION['historique'].'********Tu '.$_POST['mot2'].';Tu '.$_POST['correction2']."\n";
@@ -52,7 +53,7 @@
 									echo 'Il/Elle/On '.$_POST['mot3'].' &#9989;<br />';
 									$_SESSION['nbBonneReponse']=$_SESSION['nbBonneReponse']+1;
                                     $nbPointsLocal=$nbPointsLocal+1;
-									$_SESSION['historique']=$_SESSION['historique'].'Il/Elle/On '.$_POST['correction3']."\n";
+									$_SESSION['historique']=$_SESSION['historique'].'********Il/Elle/On '.$_POST['correction3']."\n";
 								}else{
                                     echo 'Il/Elle/On <strike>'.$_POST['mot3'].'</strike> &#10060; &#10132; '.$_POST['correction3'].'<br />';
 									$_SESSION['historique']=$_SESSION['historique'].'********Il/Elle/On '.$_POST['mot3'].';Il/Elle/On '.$_POST['correction3']."\n";
@@ -61,7 +62,7 @@
 									echo 'Nous '.$_POST['mot4'].' &#9989;<br />';
 									$_SESSION['nbBonneReponse']=$_SESSION['nbBonneReponse']+1;
                                     $nbPointsLocal=$nbPointsLocal+1;
-									$_SESSION['historique']=$_SESSION['historique'].'Nous '.$_POST['correction4']."\n";
+									$_SESSION['historique']=$_SESSION['historique'].'********Nous '.$_POST['correction4']."\n";
 								}else{
                                     echo 'Nous <strike>'.$_POST['mot4'].'</strike> &#10060; &#10132; '.$_POST['correction4'].'<br />';
 									$_SESSION['historique']=$_SESSION['historique'].'********Nous '.$_POST['mot4'].';Nous '.$_POST['correction4']."\n";
@@ -70,7 +71,7 @@
 									echo 'Vous '.$_POST['mot5'].' &#9989;<br />';
 									$_SESSION['nbBonneReponse']=$_SESSION['nbBonneReponse']+1;
                                     $nbPointsLocal=$nbPointsLocal+1;
-									$_SESSION['historique']=$_SESSION['historique'].'Vous '.$_POST['correction5']."\n";
+									$_SESSION['historique']=$_SESSION['historique'].'********Vous '.$_POST['correction5']."\n";
 								}else{
                                     echo 'Vous <strike>'.$_POST['mot5'].'</strike> &#10060; &#10132; '.$_POST['correction5'].'<br />';
 									$_SESSION['historique']=$_SESSION['historique'].'********Vous '.$_POST['mot5'].';Vous '.$_POST['correction5']."\n";
@@ -79,7 +80,7 @@
 									echo 'Ils/Elles '.$_POST['mot6'].' &#9989;<br />';
 									$_SESSION['nbBonneReponse']=$_SESSION['nbBonneReponse']+1;
                                     $nbPointsLocal=$nbPointsLocal+1;
-									$_SESSION['historique']=$_SESSION['historique'].'Ils/Elles '.$_POST['correction6']."\n";
+									$_SESSION['historique']=$_SESSION['historique'].'********Ils/Elles '.$_POST['correction6']."\n";
 								}else{
                                     echo 'Ils/Elles <strike>'.$_POST['mot6'].'</strike> &#10060; &#10132; '.$_POST['correction6'].'<br />';
 									$_SESSION['historique']=$_SESSION['historique'].'********Ils/Elles '.$_POST['mot6'].';Ils/Elles '.$_POST['correction6']."\n";
@@ -107,12 +108,6 @@
                             <?php
                                 }
 							?>
-					 
-    
-    
-    
-    
-    
     
 						</center>
 					</td>

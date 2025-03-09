@@ -1,24 +1,31 @@
 <?php
+// Inclut le fichier bdd.php pour la connexion à la base de données
 require '../bdd.php';
+// Inclut le fichier header.php
 require '../header.php';
 
-session_start();
-
+// Vérifie si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Récupère le nom d'utilisateur et le mot de passe du formulaire
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    // Prépare et exécute une requête pour récupérer l'utilisateur correspondant au nom d'utilisateur
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->execute([$username]);
     $user = $stmt->fetch();
 
+    // Vérifie si l'utilisateur existe et si le mot de passe est correct
     if ($user && password_verify($password, $user->password)) {
+        // Stocke les informations de l'utilisateur dans la session
         $_SESSION['user_id'] = $user->id;
         $_SESSION['username'] = $user->username;
         $_SESSION['role'] = $user->role;
+        // Redirige vers la page d'accueil
         header('Location: ../../index.php');
         exit();
     } else {
+        // Affiche un message d'erreur si le nom d'utilisateur ou le mot de passe est incorrect
         $error = "Nom d'utilisateur ou mot de passe incorrect";
     }
 }
@@ -39,9 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <center>
                         <div class="container">
                             <h1>Connexion</h1>
+                            <!-- Affiche un message d'erreur si les informations de connexion sont incorrectes -->
                             <?php if (isset($error)): ?>
                                 <p class="error"><?php echo $error; ?></p>
                             <?php endif; ?>
+                            <!-- Formulaire de connexion -->
                             <form method="post">
                                 <label for="username">Nom d'utilisateur:</label>
                                 <input type="text" id="username" name="username" required>
